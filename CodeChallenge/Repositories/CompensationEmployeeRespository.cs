@@ -30,7 +30,7 @@ namespace CodeChallenge.Repositories
 
         public Compensation GetCompensationEmployeeById(string id) => 
             _compensationEmployeeContext.CompensationEmployees.Include(x => x.Employee).Include(x => x.Employee.DirectReports)
-            .SingleOrDefault(e => e.Employee.EmployeeId == id);
+            .FirstOrDefault(e => e.Employee.EmployeeId == id);
 
         public Compensation Remove(Compensation employee) => _compensationEmployeeContext.Remove(employee).Entity;
 
