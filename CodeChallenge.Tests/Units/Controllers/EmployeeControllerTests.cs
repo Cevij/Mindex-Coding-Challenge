@@ -1,4 +1,3 @@
-
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -8,7 +7,7 @@ using CodeCodeChallenge.Tests.Integration.Helpers;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace CodeCodeChallenge.Tests.Integration
+namespace CodeChallenge.Tests.Integration.Units.Controllers
 {
     [TestClass]
     public class EmployeeControllerTests
@@ -99,7 +98,7 @@ namespace CodeCodeChallenge.Tests.Integration
             var putRequestTask = _httpClient.PutAsync($"api/employee/{employee.EmployeeId}",
                new StringContent(requestContent, Encoding.UTF8, "application/json"));
             var putResponse = putRequestTask.Result;
-            
+
             // Assert
             Assert.AreEqual(HttpStatusCode.OK, putResponse.StatusCode);
             var newEmployee = putResponse.DeserializeContent<Employee>();

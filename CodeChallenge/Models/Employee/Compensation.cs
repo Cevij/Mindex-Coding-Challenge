@@ -1,12 +1,15 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace CodeChallenge.Models.Employee
 {
     public class Compensation
     {
+
         /// <summary>
         /// 
         /// </summary>
+        [Key]
         public string CompensationId { get; set; }
 
         /// <summary>
@@ -17,7 +20,7 @@ namespace CodeChallenge.Models.Employee
         /// <summary>
         /// 
         /// </summary>
-        public float Salary { get; set; }
+        public double Salary { get; set; }
 
         /// <summary>
         /// 

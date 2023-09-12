@@ -3,6 +3,7 @@ using CodeChallenge.Models.Constants;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 
 namespace CodeChallenge.Config
@@ -16,8 +17,8 @@ namespace CodeChallenge.Config
                 options.UseInMemoryDatabase(CONFIG_CONSTANTS.DB_NAME);
             });
 
-            builder.Services.AddDbContext<CompensationEmployeeContext>(opt => {
-                opt.UseInMemoryDatabase(CONFIG_CONSTANTS.COMPENSATION_DB_NAME);
+            builder.Services.AddDbContext<CompensationEmployeeContext>(options => {
+                options.UseInMemoryDatabase(CONFIG_CONSTANTS.COMPENSATION_DB_NAME);
             });
         }
     }

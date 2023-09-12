@@ -17,5 +17,10 @@
 		<PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="7.0.10" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.10" />
 	</ItemGroup>
+	<ItemGroup>
+	  <Content Update="resources\CompensationEmployeeSeedData.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
 
 </Project>
