@@ -15,7 +15,7 @@ namespace CodeChallenge.Controllers
         private readonly IEmployeeService _employeeService;
 
         /// <summary>
-        /// 
+        /// Constructor
         /// </summary>
         /// <param name="logger"></param>
         /// <param name="employeeService"></param>
@@ -26,11 +26,7 @@ namespace CodeChallenge.Controllers
             _employeeService = employeeService ?? throw new ArgumentNullException(nameof(employeeService));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="compensationEmployee"></param>
-        /// <returns></returns>
+        /// <inheritdoc cref="ICompensationController"/>
         [HttpPost]
         public IActionResult CreateCompensationEmployee([FromBody] Compensation compensationEmployee)
         {
@@ -60,11 +56,7 @@ namespace CodeChallenge.Controllers
             return BadRequest();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <inheritdoc cref="ICompensationController"/>
         [HttpGet("{id}", Name = "getCompensationEmployeeById")]
         public IActionResult getCompensationEmployeeById(String id)
         {
@@ -76,7 +68,7 @@ namespace CodeChallenge.Controllers
                 var employee = _employeeService.getCompensationEmployeeById(id);
 
                 if (employee == null)
-                    return NotFound();
+                    return NotFound("No employee was found!");
 
                 return Ok(employee);
             } catch (Exception ex)
@@ -84,38 +76,6 @@ namespace CodeChallenge.Controllers
                 _logger.LogError($"Error getting compensation employee:'{id}'", ex);
             }
             
-            return BadRequest();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="newCompensation"></param>
-        /// <returns></returns>
-        [HttpPut("{id}")]
-        public IActionResult ReplaceCompensation(String id, [FromBody]Compensation newCompensation)
-        {
-            if (id == string.Empty) { return NotFound("No Id was entered!"); }
-            if (newCompensation == null) { return NotFound("No new compensation found!"); }
-
-            try
-            {
-                _logger.LogDebug($"Recieved employee compensation update request for '{id}'");
-
-                var existingCompensation = _employeeService.getCompensationEmployeeById(id);
-                if (existingCompensation == null)
-                    return NotFound();
-
-                _employeeService.ReplaceCompensation(existingCompensation, newCompensation);
-
-                return Ok(newCompensation);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Error updating compensation employee:'{id}'", ex);
-            }
-
             return BadRequest();
         }
     }

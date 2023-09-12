@@ -24,6 +24,7 @@ namespace CodeChallenge.Config
             var builder = WebApplication.CreateBuilder(args);
 
             builder.UseEmployeeDB();
+            builder.UseCompensationEmployeeDB();
             
             AddServices(builder.Services);
 
@@ -34,6 +35,7 @@ namespace CodeChallenge.Config
             {
                 app.UseDeveloperExceptionPage();
                 SeedEmployeeDB();
+                InitCompensationEmployeeDB();
             }
 
             app.UseAuthorization();
@@ -59,7 +61,13 @@ namespace CodeChallenge.Config
                 new EmployeeContext(
                     new DbContextOptionsBuilder<EmployeeContext>().UseInMemoryDatabase(CONFIG_CONSTANTS.DB_NAME).Options
             )).Seed().Wait();
+        }
 
+        /// <summary>
+        /// Creates the context for DB.
+        /// </summary>
+        private void InitCompensationEmployeeDB()
+        {
             new CompensationEmployeeContext(
                     new DbContextOptionsBuilder<CompensationEmployeeContext>().UseInMemoryDatabase(CONFIG_CONSTANTS.COMPENSATION_DB_NAME).Options
             );

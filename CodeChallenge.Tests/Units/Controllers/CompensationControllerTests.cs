@@ -1,6 +1,7 @@
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using CodeChallenge.Models.Employee;
 using CodeCodeChallenge.Tests.Integration.Extensions;
 using CodeCodeChallenge.Tests.Integration.Helpers;
@@ -28,6 +29,43 @@ namespace CodeChallenge.Tests.Integration.Units.Controllers
         {
             _httpClient.Dispose();
             _testServer.Dispose();
+        }
+
+         [TestMethod]
+        public void CreateCompensationEmployee_Returns_Created()
+        {
+            // Arrange
+            var expectedEmployeeId = "c0c2293d-16bd-4603-8e08-638a9d18b22c";
+            var expectedSalary = 19500000.00;
+            var expectedEffectiveDate = new System.DateTime();
+            var employee = new Compensation()
+            {
+                Employee = new Employee()
+                {
+                    EmployeeId = expectedEmployeeId,
+                    FirstName = "John",
+                    LastName = "Lennon",
+                    Position = "Development Manager",
+                    Department = "Engineering",
+                },
+                Salary = expectedSalary,
+                EffectiveDate = expectedEffectiveDate
+            };
+
+            var requestContent = new JsonSerialization().ToJson(employee);
+
+            // Execute
+            var postRequestTask = _httpClient.PostAsync("api/compensation",
+               new StringContent(requestContent, Encoding.UTF8, "application/json"));
+            var response = postRequestTask.Result;
+
+            // Assert
+            Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
+            var newEmployee = response.DeserializeContent<Compensation>();
+            Assert.IsNotNull(newEmployee.Employee.EmployeeId);
+            Assert.AreEqual(expectedEmployeeId, newEmployee.Employee.EmployeeId);
+            Assert.AreEqual(expectedSalary, newEmployee.Salary);
+            Assert.AreEqual(expectedEffectiveDate, newEmployee.EffectiveDate);
         }
 
         [TestMethod]
@@ -60,7 +98,7 @@ namespace CodeChallenge.Tests.Integration.Units.Controllers
         }
 
         [TestMethod]
-        public void CreateCompensationEmployee_Returns_Created()
+        public void CreateCompensationEmployee_Returns_BadRequest_For_Double_POST()
         {
             // Arrange
             var expectedEmployeeId = "16a596ae-edd3-4847-99fe-c4518e82c86f";
@@ -86,14 +124,13 @@ namespace CodeChallenge.Tests.Integration.Units.Controllers
             var postRequestTask = _httpClient.PostAsync("api/compensation",
                new StringContent(requestContent, Encoding.UTF8, "application/json"));
             var response = postRequestTask.Result;
+            var badPostRequestTask = _httpClient.PostAsync("api/compensation",
+               new StringContent(requestContent, Encoding.UTF8, "application/json"));
+            var badResponse = badPostRequestTask.Result;
 
             // Assert
             Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
-            var newEmployee = response.DeserializeContent<Compensation>();
-            Assert.IsNotNull(newEmployee.Employee.EmployeeId);
-            Assert.AreEqual(expectedEmployeeId, newEmployee.Employee.EmployeeId);
-            Assert.AreEqual(expectedSalary, newEmployee.Salary);
-            Assert.AreEqual(expectedEffectiveDate, newEmployee.EffectiveDate);
+            Assert.AreEqual(HttpStatusCode.BadRequest, badResponse.StatusCode);
         }
 
         [TestMethod]

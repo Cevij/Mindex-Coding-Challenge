@@ -1,8 +1,6 @@
 ﻿using CodeChallenge.Data.Contexts;
 using CodeChallenge.Models.Constants;
 using CodeChallenge.Models.Employee;
-using CodeChallenge.Services;
-using CodeChallenge.Services.IServices;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -16,11 +14,20 @@ namespace CodeChallenge.Data.Helpers
     {
         private EmployeeContext _employeeContext;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="employeeContext"></param>
+        /// <exception cref="ArgumentNullException"></exception>
         public EmployeeDataSeeder(EmployeeContext employeeContext)
         {
             _employeeContext = employeeContext ?? throw new ArgumentNullException(nameof(employeeContext));
         }
 
+        /// <summary>
+        /// Populates DB
+        /// </summary>
+        /// <returns></returns>
         public async Task Seed()
         {
             if (!_employeeContext.Employees.Any())
@@ -32,6 +39,10 @@ namespace CodeChallenge.Data.Helpers
             }
         }
 
+        /// <summary>
+        /// Gets list of employees from json
+        /// </summary>
+        /// <returns>List of employees </returns>
         private List<Employee> LoadEmployees()
         {
             using (FileStream fs = new FileStream(CONFIG_CONSTANTS.EMPLOYEE_SEED_DATA_FILE, FileMode.Open))
@@ -47,6 +58,10 @@ namespace CodeChallenge.Data.Helpers
             }
         }
 
+        /// <summary>
+        /// Modifiy DirectReports
+        /// </summary>
+        /// <param name="employees"></param>
         private void FixUpReferences(List<Employee> employees)
         {
             var employeeIdRefMap = from employee in employees

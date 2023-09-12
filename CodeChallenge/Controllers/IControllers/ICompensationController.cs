@@ -7,25 +7,17 @@ namespace CodeChallenge.Controllers.IController
     public interface ICompensationController
     {
         /// <summary>
-        /// 
+        /// POST method for adding new compensation employee.
         /// </summary>
-        /// <param name="compensationEmployee"></param>
+        /// <param name="compensationEmployee">New compensation employee being added. </param>
         /// <returns></returns>
         public IActionResult CreateCompensationEmployee([FromBody] Compensation compensationEmployee);
 
         /// <summary>
-        /// 
+        /// GET method for retrieving compensation employee by employeeId
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="employeeId">Employee Id.</param>
         /// <returns></returns>
-        public IActionResult getCompensationEmployeeById(String id);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="newEmployee"></param>
-        /// <returns></returns>
-        public IActionResult ReplaceCompensation(String id, [FromBody] Compensation newEmployee);
+        public IActionResult getCompensationEmployeeById(String employeeId);
     }
 }

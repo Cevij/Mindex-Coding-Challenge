@@ -6,7 +6,7 @@ namespace CodeChallenge.Data.Contexts
     public class EmployeeContext : DbContext
     {
         /// <summary>
-        /// 
+        /// Constructor
         /// </summary>
         /// <param name="options"></param>
         public EmployeeContext(DbContextOptions<EmployeeContext> options) : base(options)
@@ -15,7 +15,7 @@ namespace CodeChallenge.Data.Contexts
         }
 
         /// <summary>
-        /// 
+        /// Db set containing employees
         /// </summary>
         public DbSet<Employee> Employees { get; set; }
     }

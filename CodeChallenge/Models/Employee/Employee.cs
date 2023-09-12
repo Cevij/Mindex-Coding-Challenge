@@ -5,6 +5,9 @@ namespace CodeChallenge.Models.Employee
 {
     public class Employee
     {
+        /// <summary>
+        /// Primary Key
+        /// </summary>
         public string EmployeeId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
