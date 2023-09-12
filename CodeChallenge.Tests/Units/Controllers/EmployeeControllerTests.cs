@@ -4,7 +4,6 @@ using System.Text;
 using CodeChallenge.Models.Employee;
 using CodeCodeChallenge.Tests.Integration.Extensions;
 using CodeCodeChallenge.Tests.Integration.Helpers;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CodeChallenge.Tests.Integration.Units.Controllers

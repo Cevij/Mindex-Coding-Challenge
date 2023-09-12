@@ -1,4 +1,3 @@
-
 using System.Net;
 using System.Net.Http;
 using CodeChallenge.Models.Employee;
@@ -17,7 +16,7 @@ namespace CodeChallenge.Tests.Integration.Units.Controllers
         [ClassInitialize]
         // Attribute ClassInitialize requires this signature
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
-        public void InitializeClass(TestContext context)
+        public static void InitializeClass(TestContext context)
         {
             _testServer = new TestServer();
             _httpClient = _testServer.NewClient();
