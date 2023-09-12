@@ -14,7 +14,7 @@ namespace CodeChallenge.Repositories
         private readonly ILogger<ICompensationEmployeeRepository> _logger;
 
         /// <summary>
-        /// 
+        /// Constructor
         /// </summary>
         /// <param name="logger"></param>
         /// <param name="compensationEmployeeContext"></param>
@@ -25,39 +25,29 @@ namespace CodeChallenge.Repositories
             _logger = logger ?? throw new ArgumentNullException(nameof(logger)); ;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="compensationEmployee"></param>
-        /// <returns></returns>
+        /// <inheritdoc cref="ICompensationEmployeeRepository"/>
         public Compensation AddCompensationEmployee(Compensation compensationEmployee)
         {
             if(compensationEmployee.CompensationId == null) compensationEmployee.CompensationId = Guid.NewGuid().ToString();
-
+            _logger.LogInformation($"Compensation Employee Repository: Adding Compensation employee with employee id:{compensationEmployee.Employee.EmployeeId} " +
+                $"and compensationId:{compensationEmployee.CompensationId} to DB");
             _compensationEmployeeContext.CompensationEmployees.Add(compensationEmployee);
             return compensationEmployee;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public Compensation GetCompensationEmployeeById(string id) => 
-            _compensationEmployeeContext.CompensationEmployees.Include(x => x.Employee).Include(x => x.Employee.DirectReports)
-            .FirstOrDefault(e => e.Employee.EmployeeId == id);
+        /// <inheritdoc cref="ICompensationEmployeeRepository"/>
+        public Compensation GetCompensationEmployeeById(string employeeId)
+        {
+            _logger.LogInformation($"Compensation Employee Repository: Retrieving Compensation employee with employee id:{employeeId} from DB");
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="employee"></param>
-        /// <returns></returns>
-        public Compensation Remove(Compensation employee) => _compensationEmployeeContext.Remove(employee).Entity;
+           return _compensationEmployeeContext.CompensationEmployees.Include(x => x.Employee).Include(x => x.Employee.DirectReports)
+            .FirstOrDefault(e => e.Employee.EmployeeId == employeeId);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public Task SaveAsync() => _compensationEmployeeContext.SaveChangesAsync();
-    }
+        }
+
+        /// <inheritdoc cref="ICompensationEmployeeRepository"/>
+        public Task SaveAsync() {
+            _logger.LogInformation($"Compensation Employee Repository: Save changes to Compensation employee DB");
+            return _compensationEmployeeContext.SaveChangesAsync(); }
+        }
 }

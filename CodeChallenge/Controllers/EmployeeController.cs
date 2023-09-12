@@ -15,7 +15,7 @@ namespace CodeChallenge.Controllers
         private readonly IEmployeeService _employeeService;
 
         /// <summary>
-        /// 
+        /// Constructor
         /// </summary>
         /// <param name="logger"></param>
         /// <param name="employeeService"></param>
@@ -26,11 +26,7 @@ namespace CodeChallenge.Controllers
             _employeeService = employeeService ?? throw new ArgumentNullException(nameof(employeeService));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="employee"></param>
-        /// <returns></returns>
+        /// <inheritdoc cref="ICompensationController"/>
         [HttpPost]
         public IActionResult CreateEmployee([FromBody] Employee employee)
         {
@@ -58,11 +54,7 @@ namespace CodeChallenge.Controllers
             return BadRequest();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <inheritdoc cref="ICompensationController"/>
         [HttpGet("{id}", Name = "getEmployeeById")]
         public IActionResult GetEmployeeById(String id)
         {
@@ -87,12 +79,7 @@ namespace CodeChallenge.Controllers
 
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="newEmployee"></param>
-        /// <returns></returns>
+        /// <inheritdoc cref="ICompensationController"/>
         [HttpPut("{id}")]
         public IActionResult ReplaceEmployee(String id, [FromBody]Employee newEmployee)
         {

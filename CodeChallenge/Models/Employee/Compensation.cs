@@ -7,24 +7,14 @@ namespace CodeChallenge.Models.Employee
     {
 
         /// <summary>
-        /// 
+        /// Primary Key
         /// </summary>
-        [Key]
         public string CompensationId { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public Employee Employee { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public double Salary { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public DateTime EffectiveDate { get; set; }
     }
 }

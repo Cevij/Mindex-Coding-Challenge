@@ -15,7 +15,7 @@ namespace CodeChallenge.Controllers
         private readonly IEmployeeService _employeeService;
 
         /// <summary>
-        /// 
+        /// Construct
         /// </summary>
         /// <param name="logger"></param>
         /// <param name="employeeService"></param>
@@ -26,11 +26,7 @@ namespace CodeChallenge.Controllers
             _employeeService = employeeService ?? throw new ArgumentNullException(nameof(employeeService));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <inheritdoc cref="ICompensationController"/>
         [HttpGet("{id}")]
         public IActionResult GetReportsById(String id)
         {

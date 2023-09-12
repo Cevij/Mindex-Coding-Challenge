@@ -7,25 +7,25 @@ namespace CodeChallenge.Controllers.IController
     public interface IEmployeeController
     {
         /// <summary>
-        /// 
+        /// POST method used to create employee.
         /// </summary>
-        /// <param name="employee"></param>
+        /// <param name="employee">New employee.</param>
         /// <returns></returns>
         public IActionResult CreateEmployee([FromBody] Employee employee);
 
         /// <summary>
-        /// 
+        /// GET method to retrieve employee.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="employeeId">Employee Id.</param>
         /// <returns></returns>
-        public IActionResult GetEmployeeById(String id);
+        public IActionResult GetEmployeeById(String employeeId);
 
         /// <summary>
-        /// 
+        /// PUT method to replace old employee with new employee.
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="newEmployee"></param>
+        /// <param name="employeeId">Old employee Id.</param>
+        /// <param name="newEmployee">New employee to be added</param>
         /// <returns></returns>
-        public IActionResult ReplaceEmployee(String id, [FromBody] Employee newEmployee);
+        public IActionResult ReplaceEmployee(String employeeId, [FromBody] Employee newEmployee);
     }
 }
