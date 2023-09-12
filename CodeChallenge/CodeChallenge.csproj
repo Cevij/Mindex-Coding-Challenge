@@ -13,11 +13,6 @@
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<Optimize>False</Optimize>
 	</PropertyGroup>
-
-	<ItemGroup>
-	  <None Remove="Data\qcoo0e5m.nec~" />
-	</ItemGroup>
-
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="7.0.10" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.10" />
