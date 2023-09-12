@@ -46,6 +46,8 @@ namespace CodeChallenge.Controllers
                     return NotFound("No employee was found!");
                 }
 
+                compensationEmployee.Employee = employee;
+
                 _employeeService.CreateCompensationEmployee(compensationEmployee);
 
                 return CreatedAtRoute("getCompensationEmployeeById", new { id = compensationEmployee?.Employee?.EmployeeId }, compensationEmployee);

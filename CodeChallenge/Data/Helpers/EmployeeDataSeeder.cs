@@ -1,6 +1,10 @@
 ﻿using CodeChallenge.Data.Contexts;
+using CodeChallenge.Models.Constants;
 using CodeChallenge.Models.Employee;
+using CodeChallenge.Services;
+using CodeChallenge.Services.IServices;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,11 +15,10 @@ namespace CodeChallenge.Data.Helpers
     public class EmployeeDataSeeder
     {
         private EmployeeContext _employeeContext;
-        private const string EMPLOYEE_SEED_DATA_FILE = "resources/EmployeeSeedData.json";
 
         public EmployeeDataSeeder(EmployeeContext employeeContext)
         {
-            _employeeContext = employeeContext;
+            _employeeContext = employeeContext ?? throw new ArgumentNullException(nameof(employeeContext));
         }
 
         public async Task Seed()
@@ -31,7 +34,7 @@ namespace CodeChallenge.Data.Helpers
 
         private List<Employee> LoadEmployees()
         {
-            using (FileStream fs = new FileStream(EMPLOYEE_SEED_DATA_FILE, FileMode.Open))
+            using (FileStream fs = new FileStream(CONFIG_CONSTANTS.EMPLOYEE_SEED_DATA_FILE, FileMode.Open))
             using (StreamReader sr = new StreamReader(fs))
             using (JsonReader jr = new JsonTextReader(sr))
             {
